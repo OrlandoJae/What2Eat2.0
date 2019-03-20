@@ -32,8 +32,8 @@
 
     <jsp:attribute name="content">
         <div class="container">
-            <form method="post" class="stacked">
-                <div class="column">
+            <form method="post" class="form-singup">
+                    
                     <%-- CSRF-Token --%>
                     <input type="hidden" name="csrf_token" value="${csrf_token}">
 
@@ -42,25 +42,19 @@
                         Vorname:
                         <span class="required">*</span>
                     </label>
-                    <div class="side-by-side">
                         <input type="text" name="signup_vorname" value="${signup_form.values["signup_vorname"][0]}">
-                    </div>
                     
                     <label for="signup_nachname">
                         Nachname:
                         <span class="required">*</span>
                     </label>
-                    <div class="side-by-side">
                         <input type="text" name="signup_nachname" value="${signup_form.values["signup_nachname"][0]}">
-                    </div>
                     
                     <label for="signup_username">
                         Benutzername:
                         <span class="required">*</span>
                     </label>
-                    <div class="side-by-side">
                         <input type="text" name="signup_username" value="${signup_form.values["signup_username"][0]}">
-                    </div>
 
                     <label for="signup_password1">
                         Passwort:
@@ -74,17 +68,13 @@
                         Passwort (wdh.):
                         <span class="required">*</span>
                     </label>
-                    <div class="side-by-side">
                         <input type="password" name="signup_password2" value="${signup_form.values["signup_password2"][0]}">
-                    </div>
 
                     <%-- Button zum Abschicken --%>
-                    <div class="side-by-side">
-                        <button class="icon-pencil" type="submit">
-                            Registrieren
-                        </button>
-                    </div>
-                </div>
+                    
+                    <input type="submit" value="Registrieren">
+                    
+                
 
                 <%-- Fehlermeldungen --%>
                 <c:if test="${!empty signup_form.errors}">
@@ -98,3 +88,18 @@
         </div>
     </jsp:attribute>
 </template:base>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

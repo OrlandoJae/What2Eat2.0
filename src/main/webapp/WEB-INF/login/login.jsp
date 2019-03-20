@@ -30,20 +30,40 @@
 
     <jsp:attribute name="content">
         <div class="container">
-   
-            <form class="form-signin" action="j_security_check" method="post">
-               <div class="column">
+            <form action="j_security_check" method="post" class="form-signin">
+                
+                    <%-- Eingabefelder --%>
+                    
+                    <label for="j_username">
+                        Benutzername:
+                        <span class="required">*</span>
+                    </label>
+                        <input type="text" name="j_username" value="${signup_form.values["signup_username"][0]}">
 
-                <input type="text" name="j_username" id="username" class="form-control" placeholder="UserName.." required autofocus>
-                <input type="password" name="j_password" id="password" class="form-control" placeholder="Password.." required>
+                    <label for="j_password">
+                        Passwort:
+                        <span class="required">*</span>
+                    </label>
+                    <input type="password" name="j_password">
 
-                <input class="btn btn-dark btn-lg btn-primary btn-block" type="submit" value="Login">
-               </div>
+                    
+                    <input type="submit" value="Einloggen">
+                
             </form>
-                          
+  
+                    
+                    
         </div>
     </jsp:attribute>
 </template:base>
+
+
+
+
+
+
+
+
 
 
 
