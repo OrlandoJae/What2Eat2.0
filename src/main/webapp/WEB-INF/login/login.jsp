@@ -19,7 +19,6 @@
     </jsp:attribute>
 
     <jsp:attribute name="head">
-        <link rel="stylesheet" href="<c:url value="/css/login2.css"/>" />
     </jsp:attribute>
 
     <jsp:attribute name="menu">
@@ -56,6 +55,8 @@
         </div>
     </jsp:attribute>
 </template:base>
+
+
 
 
 

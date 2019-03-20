@@ -45,6 +45,9 @@
                     ${title}
                 </div>
             </div>
+            <div class="logo">
+                    <img src="<c:url value="/img/logo.png"/>">
+            </div>
 
             <%-- Menü --%>
             <div id="menubar">
@@ -67,3 +70,5 @@
         </main>
     </body>
 </html>
+
+

@@ -76,7 +76,18 @@ header, main {
 #titlebar .appname {
     color: rgb(5, 250, 5);
 }
-
+.logo {
+    position: absolute;
+    display: inline-block;
+    width: 100%;
+    
+}
+.logo img {
+    margin-right: 40px;
+    margin-top: -60px;
+    width: 10em;
+    float: right;
+}
 /* Menüzeile */
 #menubar .menuitem {
     display: inline-block;
@@ -93,3 +104,32 @@ a, a:visited {
 a:hover {
     text-decoration: underline;
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
