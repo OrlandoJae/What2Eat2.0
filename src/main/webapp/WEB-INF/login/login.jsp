@@ -19,7 +19,7 @@
     </jsp:attribute>
 
     <jsp:attribute name="head">
-        <link rel="stylesheet" href="<c:url value="/css/login.css"/>" />
+        <link rel="stylesheet" href="<c:url value="/css/login2.css"/>" />
     </jsp:attribute>
 
     <jsp:attribute name="menu">
@@ -30,27 +30,30 @@
 
     <jsp:attribute name="content">
         <div class="container">
-            <form action="j_security_check" method="post" class="stacked">
-                <div class="column">
-                    <%-- Eingabefelder --%>
-                    <label for="j_username">
-                        Benutzername:
-                        <span class="required">*</span>
-                    </label>
-                    <input type="text" name="j_username">
+   
+            <form class="form-signin" action="j_security_check" method="post">
+               <div class="column">
 
-                    <label for="j_password">
-                        Passwort:
-                        <span class="required">*</span>
-                    </label>
-                    <input type="password" name="j_password">
+                <input type="text" name="j_username" id="username" class="form-control" placeholder="UserName.." required autofocus>
+                <input type="password" name="j_password" id="password" class="form-control" placeholder="Password.." required>
 
-                    <%-- Button zum Abschicken --%>
-                    <button class="icon-login" type="submit">
-                        Einloggen
-                    </button>
-                </div>
+                <input class="btn btn-dark btn-lg btn-primary btn-block" type="submit" value="Login">
+               </div>
             </form>
+                          
         </div>
     </jsp:attribute>
 </template:base>
+
+
+
+
+
+
+
+
+
+
+
+
+
