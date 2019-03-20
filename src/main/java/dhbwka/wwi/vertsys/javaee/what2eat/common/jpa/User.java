@@ -39,6 +39,9 @@ public class User implements Serializable {
 
     private static final long serialVersionUID = 1L;
     private static final char[] HEX_ARRAY = "0123456789ABCDEF".toCharArray();
+    
+    private String vorname;
+    private String nachname;
 
     @Id
     @Column(name = "USERNAME", length = 64)
@@ -72,7 +75,9 @@ public class User implements Serializable {
     public User() {
     }
 
-    public User(String username, String password) {
+    public User(String username, String password, String vorname, String nachname) {
+        this.vorname = vorname;
+        this.nachname = nachname;
         this.username = username;
         this.password.password = password;
         this.passwordHash = this.hashPassword(password);
@@ -95,6 +100,23 @@ public class User implements Serializable {
     public void setTasks(List<Task> tasks) {
         this.tasks = tasks;
     }
+    
+    public String getVorname() {
+        return vorname;
+    }
+    
+    public void setVorname(String vorname) {
+        this.vorname = vorname;
+    }
+    
+    public String getNachname() {
+        return nachname;
+    }
+    
+    public void setNachname(String nachname) {
+        this.nachname = nachname;
+    }
+    
     //</editor-fold>
 
     //<editor-fold defaultstate="collapsed" desc="Passwort setzen und prüfen">
