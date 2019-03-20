@@ -6,8 +6,9 @@
     
     <persistence-unit-metadata>
         <persistence-unit-defaults>
-            <schema>JTODO</schema>
+            <schema>WHAT2EAT</schema>
         </persistence-unit-defaults>
     </persistence-unit-metadata>
     
 </entity-mappings>
+
