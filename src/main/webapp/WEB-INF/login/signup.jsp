@@ -31,7 +31,7 @@
 
     <jsp:attribute name="content">
         <div class="container">
-            <form method="post" class="form-singup">
+            <form method="post" class="form-signup">
                     
                     <%-- CSRF-Token --%>
                     <input type="hidden" name="csrf_token" value="${csrf_token}">
@@ -71,7 +71,7 @@
 
                     <%-- Button zum Abschicken --%>
                     
-                    <input type="submit" value="Registrieren">
+                    <button type="submit">Registrieren</button>
                     
                 
 
@@ -87,6 +87,8 @@
         </div>
     </jsp:attribute>
 </template:base>
+
+
 
 
 

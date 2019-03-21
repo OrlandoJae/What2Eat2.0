@@ -13,8 +13,125 @@ Creative Commons Namensnennung 4.0 International Lizenz.
     margin-bottom: 1rem;
 }
 
+input[type=text] {
+  border-radius: 4px 0 0 4px;
+}
+
+button[type=submit] {
+  width: 6em;
+  border-radius: 0 4px 4px 0;
+}
+
+i.fas {
+    font-family: fontawesome !important;
+}
+
 td, th {
-    padding-right: 2em;
+    padding-left: 1em;
+    padding-right: 1em;
     text-align: left;
     vertical-align: baseline;
+    width: 20%;
 }
+
+
+#liste {
+    background-color: rgba(76, 175, 80, 0.8);
+    background: rgba(76, 175, 80, 0.8);
+    width: 100%;
+    border-radius: 4px;
+    padding: 5px;
+    border-top: 1px solid white;
+
+}
+
+#liste a{
+    color: black;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+#liste a:hover {
+    color: white;
+}
+
+#no-tasks{
+    background-color: rgba(76, 175, 80, 0.8);
+    background: rgba(76, 175, 80, 0.8);
+    width: 100%;
+    text-align: center;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

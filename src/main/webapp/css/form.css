@@ -27,7 +27,7 @@ input[type=password], select {
   box-sizing: border-box;
 }
 
-input[type=submit] {
+button[type=submit] {
   width: 100%;
   background-color: #4CAF50;
   color: white;
@@ -42,28 +42,30 @@ input[type=submit] {
   font-weight: bold;
 }
 
-input[type=submit]:hover {
+button[type=submit]:hover {
   background-color: #45a049;
 }
 
-
-/*
- * Vertikal gestapelte Formulare
- */
-
-/* Jede Spalte max. 30em breit */
-form.stacked .column {
+/* Jede Spalte für Sign in/up Form max. 30em breit */
+.form-signup{
     max-width: 30em;
 }
 
-/* Formularelemente maximal breit gestapelt */
-form.stacked > *,
-form.stacked .column > *,
-form.stacked .side-by-side > * {
-    display: block;
-    box-sizing: border-box;
-    width: 100%;
+.form-signin{
+    max-width: 30em;
 }
+
+.form-select{
+    color: #4CAF50;
+}
+
+.form-select option{
+    font-weight: bold;
+    font-family: 'Quicksand', sans-serif;
+}
+/*
+ * Vertikal gestapelte Formulare
+ */
 
 /* Container für nebeneinander liegende Elemente */
 .container {
@@ -126,6 +128,21 @@ form .errors {
     margin-top: 1em;
     color: red;
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

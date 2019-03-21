@@ -46,7 +46,7 @@
                     <input type="password" name="j_password">
 
                     
-                    <input type="submit" value="Einloggen">
+                    <button type="submit">Einloggen</button>
                 
             </form>
   
@@ -55,6 +55,7 @@
         </div>
     </jsp:attribute>
 </template:base>
+
 
 
 

@@ -38,54 +38,83 @@
 
     <jsp:attribute name="content">
         <%-- Suchfilter --%>
-        <form method="GET" class="horizontal" id="search">
+        <form method="GET" class="horizontal" id="search" name="search">
             <input type="text" name="search_text" value="${param.search_text}" placeholder="Beschreibung"/>
 
-            <select name="search_category">
+            <button class="input-search" type="submit" value="">Suchen<i class="fas fa-paper-plane"></i></button>
+
+            <!-- <select name="search_category">
                 <option value="">Alle Kategorien</option>
 
-                <c:forEach items="${categories}" var="category">
-                    <option value="${category.id}" ${param.search_category == category.id ? 'selected' : ''}>
-                        <c:out value="${category.name}" />
-                    </option>
-                </c:forEach>
-            </select>
+            <c:forEach items="${categories}" var="category">
+                <option value="${category.id}" ${param.search_category == category.id ? 'selected' : ''}>
+                <c:out value="${category.name}" />
+            </option>
+            </c:forEach>
+        </select>
 
-            <select name="search_status">
-                <option value="">Alle Stati</option>
+        <select name="search_status">
+            <option value="">Alle Stati</option>
 
-                <c:forEach items="${statuses}" var="status">
-                    <option value="${status}" ${param.search_status == status ? 'selected' : ''}>
-                        <c:out value="${status.label}"/>
-                    </option>
-                </c:forEach>
-            </select>
+            <c:forEach items="${statuses}" var="status">
+                <option value="${status}" ${param.search_status == status ? 'selected' : ''}>
+                <c:out value="${status.label}"/>
+            </option>
+            </c:forEach>
+        </select>
 
-            <button class="icon-search" type="submit">
-                Suchen
-            </button>
+        <button class="icon-search" type="submit" style="display: none;">
+            Suchen
+        </button> -->
         </form>
+
+        <table id="liste">
+            <thead>
+                <tr>
+                    <th>Bezeichnung</th>
+                    <th>Kategorie
+                        <form id="form-select">
+                            <select onchange="this.form.submit()" name="search_category">
+                                <option value="">Alle Kategorien</option>
+                                <c:forEach items="${categories}" var="category">
+                                    <option value="${category.id}" ${param.search_category == category.id ? 'selected' : ''}>
+                                        <c:out value="${category.name}" />
+                                    </option>
+                                </c:forEach>
+                            </select>
+                        </form>
+                    </th>
+                    <th>Eigentümer</th>
+                    <th>Status
+                        <form id="form-select">
+                            <select onchange="this.form.submit()" name="search_status">
+                                <option value="">Alle Stati</option>
+
+                                <c:forEach items="${statuses}" var="status">
+                                    <option value="${status}" ${param.search_status == status ? 'selected' : ''}>
+                                        <c:out value="${status.label}"/>
+                                    </option>
+                                </c:forEach>
+                            </select>
+                        </form>
+                    </th>
+                    <th>Fällig am</th>
+                </tr>
+            </thead>
+        </table>
 
         <%-- Gefundene Aufgaben --%>
         <c:choose>
             <c:when test="${empty tasks}">
-                <p>
+                <p id="no-tasks">
                     Es wurden keine Aufgaben gefunden. 🐈
                 </p>
             </c:when>
             <c:otherwise>
                 <jsp:useBean id="utils" class="dhbwka.wwi.vertsys.javaee.what2eat.common.web.WebUtils"/>
-                
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Bezeichnung</th>
-                            <th>Kategorie</th>
-                            <th>Eigentümer</th>
-                            <th>Status</th>
-                            <th>Fällig am</th>
-                        </tr>
-                    </thead>
+
+
+                <table id="liste">
                     <c:forEach items="${tasks}" var="task">
                         <tr>
                             <td>
@@ -109,7 +138,79 @@
                         </tr>
                     </c:forEach>
                 </table>
+
             </c:otherwise>
         </c:choose>
     </jsp:attribute>
 </template:base>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
