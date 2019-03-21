@@ -47,7 +47,7 @@
                 <input type="hidden" name="csrf_token" value="${csrf_token}">
 
                 <%-- Eingabefelder --%>
-                <label for="task_owner">Eigentümer:</label>
+                <label for="task_owner">Verfasser:</label>
                 <div class="side-by-side">
                     <input type="text" name="task_owner" value="${task_form.values["task_owner"][0]}" readonly="readonly">
                 </div>
@@ -63,15 +63,6 @@
                             </option>
                         </c:forEach>
                     </select>
-                </div>
-
-                <label for="task_due_date">
-                    Fällig am:
-                    <span class="required">*</span>
-                </label>
-                <div class="side-by-side">
-                    <input type="text" name="task_due_date" value="${task_form.values["task_due_date"][0]}">
-                    <input type="text" name="task_due_time" value="${task_form.values["task_due_time"][0]}">
                 </div>
 
                 <label for="task_status">
@@ -95,7 +86,21 @@
                 <div class="side-by-side">
                     <input type="text" name="task_short_text" value="${task_form.values["task_short_text"][0]}">
                 </div>
-
+                
+                <label for="recipe_ingredients">Zutaten:</label>
+                <div class="side-by-side">
+                    <input type="text" list="suchbegriffe" />
+                    <datalist id="suchbegriffe">
+                      <option>Zutat1</option>
+                      <option>Zutat2</option>
+                      <option>…</option>
+                    </datalist>
+                </div>
+                
+                <div id="textbox">
+                Zutatenliste
+                </div>
+                
                 <label for="task_long_text">
                     Beschreibung:
                 </label>
@@ -129,6 +134,20 @@
        </div>     
     </jsp:attribute>
 </template:base>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

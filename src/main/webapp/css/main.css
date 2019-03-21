@@ -97,7 +97,8 @@ header, main {
 
 /* Farben für Links */
 a, a:visited {
-    color: rgb(5, 250, 5);
+    font-weight: bold;
+    color: rgb(76, 175, 80);
     text-decoration: none;
 }
 
@@ -117,7 +118,14 @@ i {
     background: rgba(76, 175, 80, 0.8);
     width: 100%;
     text-align: center;
+    border-radius: 4px;
+    
 }
+
+
+
+
+
 
 
 
