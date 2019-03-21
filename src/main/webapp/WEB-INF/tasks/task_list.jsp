@@ -106,7 +106,7 @@
         <%-- Gefundene Aufgaben --%>
         <c:choose>
             <c:when test="${empty tasks}">
-                <p id="no-tasks">
+                <p id="textbox">
                     Es wurden keine Aufgaben gefunden. 🐈
                 </p>
             </c:when>
@@ -119,7 +119,7 @@
                         <tr>
                             <td>
                                 <a href="<c:url value="/app/tasks/task/${task.id}/"/>">
-                                    <c:out value="${task.shortText}"/>
+                                    <i class="far fa-edit"></i><c:out value="${task.shortText}"/>
                                 </a>
                             </td>
                             <td>
@@ -143,6 +143,9 @@
         </c:choose>
     </jsp:attribute>
 </template:base>
+
+
+
 
 
 

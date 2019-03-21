@@ -22,10 +22,6 @@ button[type=submit] {
   border-radius: 0 4px 4px 0;
 }
 
-i.fas {
-    font-family: fontawesome !important;
-}
-
 td, th {
     padding-left: 1em;
     padding-right: 1em;
@@ -55,12 +51,9 @@ td, th {
     color: white;
 }
 
-#no-tasks{
-    background-color: rgba(76, 175, 80, 0.8);
-    background: rgba(76, 175, 80, 0.8);
-    width: 100%;
-    text-align: center;
-}
+
+
+
 
 
 

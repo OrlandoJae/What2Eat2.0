@@ -33,7 +33,7 @@
     </jsp:attribute>
 
     <jsp:attribute name="content">
-        <form method="post" class="stacked">
+        <form method="post" class="form-30">
             <%-- CSRF-Token --%>
             <input type="hidden" name="csrf_token" value="${csrf_token}">
 
@@ -42,8 +42,8 @@
                 <label for="j_username">Neue Kategorie:</label>
                 <input type="text" name="name" value="${categories_form.values["name"][0]}">
 
-                <button type="submit" name="action" value="create" class="icon-pencil">
-                    Anlegen
+                <button type="submit" name="action" value="create" >
+                    <i class="fas fa-pencil"></i>Anlegen
                 </button>
             </div>
 
@@ -59,12 +59,12 @@
             <%-- Vorhandene Kategorien --%>
             <c:choose>
                 <c:when test="${empty categories}">
-                    <p>
+                    <p id="textbox">
                         Es sind noch keine Kategorien vorhanden. 🐏
                     </p>
                 </c:when>
                 <c:otherwise>
-                    <div>
+                    <div id="textbox">
                         <div class="margin">
                             <c:forEach items="${categories}" var="category">
                                 <input type="checkbox" name="category" id="${'category-'.concat(category.id)}" value="${category.id}" />
@@ -74,13 +74,21 @@
                                 <br />
                             </c:forEach>
                         </div>
-
-                        <button type="submit" name="action" value="delete" class="icon-trash">
-                            Markierte löschen
-                        </button>
                     </div>
+                    <button type="submit" name="action" value="delete">
+                        <i class="far fa-minus-square"></i> Markierte löschen
+                    </button>
+                    
                 </c:otherwise>
             </c:choose>
         </form>
     </jsp:attribute>
 </template:base>
+
+
+
+
+
+
+
+

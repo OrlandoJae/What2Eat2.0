@@ -29,7 +29,7 @@
 
     <jsp:attribute name="content">
         <div class="container">
-            <form action="j_security_check" method="post" class="form-signin">
+            <form action="j_security_check" method="post" class="form-30">
                 
                     <%-- Eingabefelder --%>
                     
@@ -55,6 +55,7 @@
         </div>
     </jsp:attribute>
 </template:base>
+
 
 
 

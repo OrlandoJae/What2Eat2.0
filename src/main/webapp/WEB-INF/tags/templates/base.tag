@@ -26,12 +26,12 @@
         
         <!-- https://pixabay.com/de/flach-design-symbol-icon-www-2126884/ -->
         <link rel="shortcut icon" href="<c:url value="/img/favicon.png"/>">
-
+        
+        
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
         <link rel="stylesheet" href="<c:url value="/fontello/css/fontello.css"/>" />
         <link rel="stylesheet" href="<c:url value="/css/main.css"/>" />
         <link rel="stylesheet" href="<c:url value="/css/form.css"/>" />
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-        <script src="<c:url value="/js/scripts.js"/>"></script>
 
         <jsp:invoke fragment="head"/>
     </head>
@@ -57,10 +57,10 @@
 
                 <c:if test="${not empty pageContext.request.userPrincipal}">
                     <div class="menuitem">
-                        <a href="<c:url value="/editProfile/"/>" class="menu-item">Benutzerverwaltung</a>
+                        <a href="<c:url value="/editProfile/"/>">Benutzerverwaltung</a>
                     </div>
                     <div class="menuitem">
-                        <a href="<c:url value="/logout/"/>" class="icon-logout">Logout ${pageContext.request.userPrincipal.name}</a>
+                        <a href="<c:url value="/logout/"/>">Logout ${pageContext.request.userPrincipal.name}<i class="fas fa-sign-out"></i></a>
                     </div>
                 </c:if>
             </div>
@@ -72,6 +72,21 @@
         </main>
     </body>
 </html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

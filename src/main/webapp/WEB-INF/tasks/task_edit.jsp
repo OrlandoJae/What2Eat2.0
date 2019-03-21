@@ -40,7 +40,7 @@
     </jsp:attribute>
 
     <jsp:attribute name="content">
-        <form method="post" class="stacked">
+        <form method="post" class="form-30">
             <div class="column">
                 <%-- CSRF-Token --%>
                 <input type="hidden" name="csrf_token" value="${csrf_token}">
@@ -104,13 +104,13 @@
 
                 <%-- Button zum Abschicken --%>
                 <div class="side-by-side">
-                    <button class="icon-pencil" type="submit" name="action" value="save">
-                        Sichern
+                    <button type="submit" name="action" value="save">
+                        <i class="fas fa-share-square"></i>Sichern
                     </button>
 
                     <c:if test="${edit}">
-                        <button class="icon-trash" type="submit" name="action" value="delete">
-                            Löschen
+                        <button type="submit" name="action" value="delete">
+                           <i class="fas fa-minus-square"></i> Löschen
                         </button>
                     </c:if>
                 </div>
@@ -127,3 +127,11 @@
         </form>
     </jsp:attribute>
 </template:base>
+
+
+
+
+
+
+
+

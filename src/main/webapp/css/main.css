@@ -105,6 +105,31 @@ a:hover {
     text-decoration: underline;
 }
 
+i {
+    font-family: fontawesome !important;
+    padding-right: 10px;
+    padding-left: 4px;
+}
+
+
+#textbox{
+    background-color: rgba(76, 175, 80, 0.8);
+    background: rgba(76, 175, 80, 0.8);
+    width: 100%;
+    text-align: center;
+}
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

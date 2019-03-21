@@ -47,11 +47,7 @@ button[type=submit]:hover {
 }
 
 /* Jede Spalte für Sign in/up Form max. 30em breit */
-.form-signup{
-    max-width: 30em;
-}
-
-.form-signin{
+.form-30{
     max-width: 30em;
 }
 
@@ -128,6 +124,7 @@ form .errors {
     margin-top: 1em;
     color: red;
 }
+
 
 
 
