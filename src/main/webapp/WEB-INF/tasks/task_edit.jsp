@@ -40,8 +40,9 @@
     </jsp:attribute>
 
     <jsp:attribute name="content">
-        <form method="post" class="form-30">
-            <div class="column">
+        
+            <div class="container">
+                <form method="post" class="form-30">
                 <%-- CSRF-Token --%>
                 <input type="hidden" name="csrf_token" value="${csrf_token}">
 
@@ -114,7 +115,7 @@
                         </button>
                     </c:if>
                 </div>
-            </div>
+            
 
             <%-- Fehlermeldungen --%>
             <c:if test="${!empty task_form.errors}">
@@ -125,8 +126,13 @@
                 </ul>
             </c:if>
         </form>
+       </div>     
     </jsp:attribute>
 </template:base>
+
+
+
+
 
 
 

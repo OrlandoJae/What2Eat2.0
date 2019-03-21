@@ -39,33 +39,11 @@
     <jsp:attribute name="content">
         <%-- Suchfilter --%>
         <form method="GET" class="horizontal" id="search" name="search">
-            <input type="text" name="search_text" value="${param.search_text}" placeholder="Beschreibung"/>
+            
+            <input type="text" name="search_text" value="${param.search_text}" placeholder="Bezeichnung suchen..."/>
 
             <button class="input-search" type="submit" value="">Suchen<i class="fas fa-paper-plane"></i></button>
-
-            <!-- <select name="search_category">
-                <option value="">Alle Kategorien</option>
-
-            <c:forEach items="${categories}" var="category">
-                <option value="${category.id}" ${param.search_category == category.id ? 'selected' : ''}>
-                <c:out value="${category.name}" />
-            </option>
-            </c:forEach>
-        </select>
-
-        <select name="search_status">
-            <option value="">Alle Stati</option>
-
-            <c:forEach items="${statuses}" var="status">
-                <option value="${status}" ${param.search_status == status ? 'selected' : ''}>
-                <c:out value="${status.label}"/>
-            </option>
-            </c:forEach>
-        </select>
-
-        <button class="icon-search" type="submit" style="display: none;">
-            Suchen
-        </button> -->
+            
         </form>
 
         <table id="liste">
@@ -143,6 +121,8 @@
         </c:choose>
     </jsp:attribute>
 </template:base>
+
+
 
 
 

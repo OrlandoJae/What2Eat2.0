@@ -67,6 +67,7 @@ button[type=submit]:hover {
 .container {
     display: flex;
     justify-content: center;
+    align-items: stretch;
 }
 
 /*
@@ -114,6 +115,7 @@ select {
 }
 
 textarea {
+    width: 33em;
     height: 12em;
 }
 
@@ -124,6 +126,13 @@ form .errors {
     margin-top: 1em;
     color: red;
 }
+
+
+
+
+
+
+
 
 
 
