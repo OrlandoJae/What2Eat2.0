@@ -87,7 +87,7 @@
                     <input type="text" name="task_short_text" value="${task_form.values["task_short_text"][0]}">
                 </div>
                 
-                <label for="recipe_ingredients">Zutaten:</label>
+                <label for="task_zutat">Zutaten:</label>
                 <div class="side-by-side">
                     <input type="text" list="suchbegriffe" />
                     <datalist id="suchbegriffe">
@@ -134,6 +134,8 @@
        </div>     
     </jsp:attribute>
 </template:base>
+
+
 
 
 
