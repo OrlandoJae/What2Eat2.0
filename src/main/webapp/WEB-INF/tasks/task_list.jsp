@@ -34,6 +34,10 @@
         <div class="menuitem">
             <a href="<c:url value="/app/tasks/categories/"/>">Kategorien bearbeiten</a>
         </div>
+        
+        <div class="menuitem">
+            <a href="<c:url value="/app/tasks/zutaten/"/>">Zutaten bearbeiten</a>
+        </div>
     </jsp:attribute>
 
     <jsp:attribute name="content">
@@ -76,7 +80,7 @@
                             </select>
                         </form>
                     </th>
-                    <th>Fällig am</th>
+                    <th>Zutaten</th>
                 </tr>
             </thead>
         </table>
@@ -110,8 +114,7 @@
                                 <c:out value="${task.status.label}"/>
                             </td>
                             <td>
-                                <c:out value="${utils.formatDate(task.dueDate)}"/>
-                                <c:out value="${utils.formatTime(task.dueTime)}"/>
+                                
                             </td>
                         </tr>
                     </c:forEach>
@@ -121,6 +124,9 @@
         </c:choose>
     </jsp:attribute>
 </template:base>
+
+
+
 
 
 

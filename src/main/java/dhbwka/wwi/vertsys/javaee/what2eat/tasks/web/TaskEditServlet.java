@@ -15,11 +15,10 @@ import dhbwka.wwi.vertsys.javaee.what2eat.tasks.ejb.CategoryBean;
 import dhbwka.wwi.vertsys.javaee.what2eat.tasks.ejb.TaskBean;
 import dhbwka.wwi.vertsys.javaee.what2eat.common.ejb.UserBean;
 import dhbwka.wwi.vertsys.javaee.what2eat.common.ejb.ValidationBean;
+import dhbwka.wwi.vertsys.javaee.what2eat.tasks.ejb.ZutatBean;
 import dhbwka.wwi.vertsys.javaee.what2eat.tasks.jpa.Task;
 import dhbwka.wwi.vertsys.javaee.what2eat.tasks.jpa.TaskStatus;
 import java.io.IOException;
-import java.sql.Date;
-import java.sql.Time;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -43,6 +42,9 @@ public class TaskEditServlet extends HttpServlet {
 
     @EJB
     CategoryBean categoryBean;
+    
+    @EJB
+    ZutatBean zutatBean;
 
     @EJB
     UserBean userBean;
@@ -56,6 +58,7 @@ public class TaskEditServlet extends HttpServlet {
 
         // Verfügbare Kategorien und Stati für die Suchfelder ermitteln
         request.setAttribute("categories", this.categoryBean.findAllSorted());
+        request.setAttribute("zutaten", this.zutatBean.findAllSorted());
         request.setAttribute("statuses", TaskStatus.values());
 
         // Zu bearbeitende Aufgabe einlesen
@@ -126,6 +129,14 @@ public class TaskEditServlet extends HttpServlet {
                 // Ungültige oder keine ID mitgegeben
             }
         }
+        
+        if (taskZutat != null && !taskZutat.trim().isEmpty()) {
+            try {
+                task.setZutat(this.zutatBean.findById(Long.parseLong(taskZutat)));
+            } catch (NumberFormatException ex) {
+                // Ungültige oder keine ID mitgegeben
+            }
+        }
 
         try {
             task.setStatus(TaskStatus.valueOf(taskStatus));
@@ -191,8 +202,6 @@ public class TaskEditServlet extends HttpServlet {
         // Zunächst davon ausgehen, dass ein neuer Satz angelegt werden soll
         Task task = new Task();
         task.setOwner(this.userBean.getCurrentUser());
-        task.setDueDate(new Date(System.currentTimeMillis()));
-        task.setDueTime(new Time(System.currentTimeMillis()));
 
         // ID aus der URL herausschneiden
         String taskId = request.getPathInfo();
@@ -246,14 +255,6 @@ public class TaskEditServlet extends HttpServlet {
             });
         }
 
-        values.put("task_due_date", new String[]{
-            WebUtils.formatDate(task.getDueDate())
-        });
-
-        values.put("task_due_time", new String[]{
-            WebUtils.formatTime(task.getDueTime())
-        });
-
         values.put("task_status", new String[]{
             task.getStatus().toString()
         });
@@ -272,6 +273,13 @@ public class TaskEditServlet extends HttpServlet {
     }
 
 }
+
+
+
+
+
+
+
 
 
 

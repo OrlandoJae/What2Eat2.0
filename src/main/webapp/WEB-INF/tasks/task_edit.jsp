@@ -88,12 +88,15 @@
                 </div>
                 
                 <label for="task_zutat">Zutaten:</label>
-                <div class="side-by-side">
-                    <input type="text" list="suchbegriffe" />
-                    <datalist id="suchbegriffe">
-                      <option>Zutat1</option>
-                      <option>Zutat2</option>
-                      <option>…</option>
+                    <div class="side-by-side">
+                    <input type="text" list="suchbegriffe" name="task_zutat"/>
+                    <datalist id="suchbegriffe" >
+                        <option value="">...</option>
+                        <c:forEach items="${zutaten}" var="zutat">
+                            <option value="${zutat.name}" ${task_form.values["task_zutat"][0] == zutat.id.toString() ? 'selected' : ''}>
+                                <c:out value="${zutat.name}" />
+                            </option>
+                        </c:forEach>
                     </datalist>
                 </div>
                 
@@ -134,6 +137,20 @@
        </div>     
     </jsp:attribute>
 </template:base>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
