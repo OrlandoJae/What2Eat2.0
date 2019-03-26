@@ -280,6 +280,8 @@ public class TaskEditServlet extends HttpServlet {
         
         task.addZutat(z);
         
+        this.taskBean.update(task);
+        
         FormValues formValues = new FormValues();
             formValues.setValues(request.getParameterMap());
             formValues.setErrors(errors);

@@ -11,6 +11,7 @@ package dhbwka.wwi.vertsys.javaee.what2eat.tasks.jpa;
 
 import dhbwka.wwi.vertsys.javaee.what2eat.common.jpa.User;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -42,7 +43,7 @@ public class Task implements Serializable {
     @ManyToOne
     @NotNull(message = "Die Aufgabe muss einem Benutzer geordnet werden.")
     private User owner;
-
+    
     @ManyToOne
     private Category category;
     
@@ -127,12 +128,19 @@ public class Task implements Serializable {
         zutatenListe = zutaten;
     }
     
-    public List<Zutat> getZutaten() {
+    public List<Zutat> getZutatenListe() {
         return this.zutatenListe;
     }
     
     public void addZutat(Zutat zutat) {
-        this.zutatenListe.add(zutat);
+        if (zutatenListe != null) {
+            this.zutatenListe.add(zutat);
+        }
+        else {
+            List<Zutat> list = new ArrayList();
+            list.add(zutat);
+            this.setZutaten(list);
+        }
     }
     //</editor-fold>
 

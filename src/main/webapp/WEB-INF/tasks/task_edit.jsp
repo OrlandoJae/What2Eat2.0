@@ -115,17 +115,17 @@
                 </div>
                 <%-- Vorhandene Kategorien --%>
                 <c:choose>
-                    <c:when test="${empty task.zutenListe}">
+                    <c:when test="${empty task.zutatenListe}">
                         <p id="textbox">
                             Es sind noch keine Kategorien vorhanden. 🐏
                         </p>
                     </c:when>
                     <c:otherwise>
                         <div id="textbox" class="zutatengruppe">
-                                <c:forEach items="${task.zutenListe}" var="zutatenliste">
-                                    <input type="checkbox" name="zutatenliste" id="${'zutatenliste-'.concat(zutatenliste.id)}" value="${zutatenliste.id}" />
-                                    <label id="zutatenliste" for="${'zutatenliste-'.concat(zutatenliste.id)}">
-                                        <c:out value="${task.zutatenliste}"/>
+                                <c:forEach items="${task.zutatenListe}" var="zutatenListe">
+                                    <input type="checkbox" name="zutatenliste" value="${zutatenListe.id}" />
+                                    <label id="zutatenListe">
+                                        <c:out value="${task.zutatenListe}"/>
                                     </label>
                                     <br />
                                 </c:forEach>
