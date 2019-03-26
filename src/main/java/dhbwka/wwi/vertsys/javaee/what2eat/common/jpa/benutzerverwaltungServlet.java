@@ -18,7 +18,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.ejb.EJB;
 import dhbwka.wwi.vertsys.javaee.what2eat.common.ejb.UserBean;
+import dhbwka.wwi.vertsys.javaee.what2eat.common.ejb.UserBean.InvalidCredentialsException;
 import dhbwka.wwi.vertsys.javaee.what2eat.common.jpa.User;
+import dhbwka.wwi.vertsys.javaee.what2eat.common.web.WebUtils;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -34,13 +37,47 @@ public class benutzerverwaltungServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
+       User nutzer = userBean.getCurrentUser();
+       
+       request.setAttribute("nutzer", nutzer);
         
-        
+       request.getRequestDispatcher("/WEB-INF/tasks/editProfile.jsp").forward(request, response);
     }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        
+        User nutzer = userBean.getCurrentUser();
+        
+        String vorname = request.getParameter("vorname");
+        String nachname = request.getParameter("nachname");
+        String passwortAlt = request.getParameter("passwort_alt");
+        String passwortNeu = request.getParameter("passwort_neu");
+        
+        if (nutzer.checkPassword(passwortAlt)) {
+            nutzer.setNachname(nachname);
+            nutzer.setVorname(vorname); 
+            
+            if (!passwortNeu.equals("")) {
+                try {
+                userBean.changePassword(nutzer, passwortAlt, passwortNeu);
+                }
+                catch (InvalidCredentialsException e) {
+                }
+            }
+            
+            nutzer = userBean.update(nutzer);
+            response.sendRedirect(WebUtils.appUrl(request, "/app/dashboard/"));
+        }                             
+        
+        else {
+            String error = "Passwort falsch!";
+            request.setAttribute("error", error);
+            request.setAttribute("nutzer", nutzer);            
+            response.sendRedirect(request.getRequestURI());
+            //request.getRequestDispatcher("/WEB-INF/tasks/editProfile.jsp").forward(request, response);
+        }
         
     }
 
