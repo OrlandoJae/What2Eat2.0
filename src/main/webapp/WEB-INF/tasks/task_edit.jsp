@@ -122,10 +122,10 @@
                     </c:when>
                     <c:otherwise>
                         <div id="textbox" class="zutatengruppe">
-                                <c:forEach items="${task.zutatenListe}" var="zutatenListe">
-                                    <input type="checkbox" name="zutatenliste" value="${zutatenListe.id}" />
+                                <c:forEach items="${zutatenListe}" var="zutat">
+                                    <input type="checkbox" name="zutatenliste" value="${zutat.id}" />
                                     <label id="zutatenListe">
-                                        <c:out value="${task.zutatenListe}"/>
+                                        <c:out value="${zutat}"/>
                                     </label>
                                     <br />
                                 </c:forEach>

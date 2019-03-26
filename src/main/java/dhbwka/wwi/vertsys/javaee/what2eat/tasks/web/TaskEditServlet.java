@@ -24,6 +24,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import javafx.beans.binding.Bindings;
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -52,10 +53,14 @@ public class TaskEditServlet extends HttpServlet {
 
     @EJB
     ValidationBean validationBean;
+    
+    List<Zutat> zutatenListe;
 
     @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        
+        zutatenListe = new ArrayList();
         
         // Verfügbare Kategorien und Stati für die Suchfelder ermitteln
         request.setAttribute("categories", this.categoryBean.findAllSorted());
@@ -68,9 +73,13 @@ public class TaskEditServlet extends HttpServlet {
 
         Task task = this.getRequestedTask(request);
         
-        request.setAttribute("task", task);
-        
         request.setAttribute("edit", task.getId() != 0);
+        
+        if (task.getId() != 0) {
+            zutatenListe = task.getZutatenListe();
+        }
+        
+        request.setAttribute("zutatenListe", zutatenListe);
                                 
         if (session.getAttribute("task_form") == null) {
             // Keine Formulardaten mit fehlerhaften Daten in der Session,
@@ -138,6 +147,10 @@ public class TaskEditServlet extends HttpServlet {
             } catch (NumberFormatException ex) {
                 // Ungültige oder keine ID mitgegeben
             }
+        }
+        
+        if (!zutatenListe.isEmpty()) {
+            task.setZutaten(zutatenListe);
         }
 
         try {
@@ -276,11 +289,10 @@ public class TaskEditServlet extends HttpServlet {
 
         String taskZutat = request.getParameter("task_zutat");
         Zutat z = zutatBean.findByName(taskZutat);
-        Task task = this.getRequestedTask(request);
         
-        task.addZutat(z);
+        zutatenListe.add(z);
         
-        this.taskBean.update(task);
+        log(zutatenListe.toString());
         
         FormValues formValues = new FormValues();
             formValues.setValues(request.getParameterMap());
