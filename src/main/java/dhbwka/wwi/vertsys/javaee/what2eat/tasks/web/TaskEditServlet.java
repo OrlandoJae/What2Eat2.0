@@ -57,17 +57,19 @@ public class TaskEditServlet extends HttpServlet {
     public void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
-        List<Task> tasks = this.taskBean.findByUsername(this.userBean.getCurrentUser().getUsername());
-        long gruppenID = tasks.size() + 1;
         // Verfügbare Kategorien und Stati für die Suchfelder ermitteln
         request.setAttribute("categories", this.categoryBean.findAllSorted());
         request.setAttribute("statuses", TaskStatus.values());
         request.setAttribute("zutaten", this.zutatBean.findAllSorted());
+        
 
         // Zu bearbeitende Aufgabe einlesen
         HttpSession session = request.getSession();
 
         Task task = this.getRequestedTask(request);
+        
+        request.setAttribute("task", task);
+        
         request.setAttribute("edit", task.getId() != 0);
                                 
         if (session.getAttribute("task_form") == null) {
@@ -289,6 +291,8 @@ public class TaskEditServlet extends HttpServlet {
     }
 
 }
+
+
 
 
 
