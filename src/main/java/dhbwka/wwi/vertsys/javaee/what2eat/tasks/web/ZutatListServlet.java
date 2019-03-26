@@ -147,9 +147,6 @@ public class ZutatListServlet extends HttpServlet {
                 continue;
             }
 
-            // Bei allen betroffenen Aufgaben, den Bezug zur Kategorie aufheben
-            List<Task> tasks = zutat.getTasks();
-
             // Und weg damit
             this.zutatBean.delete(zutat);
         }
@@ -159,6 +156,7 @@ public class ZutatListServlet extends HttpServlet {
     }
 
 }
+
 
 
 

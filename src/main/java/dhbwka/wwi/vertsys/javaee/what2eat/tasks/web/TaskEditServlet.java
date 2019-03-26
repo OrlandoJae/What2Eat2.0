@@ -16,8 +16,10 @@ import dhbwka.wwi.vertsys.javaee.what2eat.tasks.ejb.TaskBean;
 import dhbwka.wwi.vertsys.javaee.what2eat.common.ejb.UserBean;
 import dhbwka.wwi.vertsys.javaee.what2eat.common.ejb.ValidationBean;
 import dhbwka.wwi.vertsys.javaee.what2eat.tasks.ejb.ZutatBean;
+import dhbwka.wwi.vertsys.javaee.what2eat.tasks.ejb.ZutatGruppeBean;
 import dhbwka.wwi.vertsys.javaee.what2eat.tasks.jpa.Task;
 import dhbwka.wwi.vertsys.javaee.what2eat.tasks.jpa.TaskStatus;
+import dhbwka.wwi.vertsys.javaee.what2eat.tasks.jpa.ZutatGruppe;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -39,6 +41,9 @@ public class TaskEditServlet extends HttpServlet {
 
     @EJB
     TaskBean taskBean;
+    
+    @EJB
+    ZutatGruppeBean zutatgruppeBean;
 
     @EJB
     CategoryBean categoryBean;
@@ -55,11 +60,14 @@ public class TaskEditServlet extends HttpServlet {
     @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
+        
+        List<Task> tasks = this.taskBean.findByUsername(this.userBean.getCurrentUser().getUsername());
+        long gruppenID = tasks.size() + 1;
         // Verfügbare Kategorien und Stati für die Suchfelder ermitteln
         request.setAttribute("categories", this.categoryBean.findAllSorted());
-        request.setAttribute("zutaten", this.zutatBean.findAllSorted());
         request.setAttribute("statuses", TaskStatus.values());
+        request.setAttribute("zutaten", this.zutatBean.findAllSorted());
+        request.setAttribute("grupp", this.zutatgruppeBean.findAllSorted(gruppenID));
 
         // Zu bearbeitende Aufgabe einlesen
         HttpSession session = request.getSession();
@@ -82,6 +90,9 @@ public class TaskEditServlet extends HttpServlet {
     @Override
     public void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        
+        List<Task> tasks = this.taskBean.findByUsername(this.userBean.getCurrentUser().getUsername());
+        long gruppenID = tasks.size() + 1;
 
         // Angeforderte Aktion ausführen
         String action = request.getParameter("action");
@@ -93,6 +104,9 @@ public class TaskEditServlet extends HttpServlet {
         switch (action) {
             case "save":
                 this.saveTask(request, response);
+                break;
+            case "add":
+                this.addZutat(request, response);
                 break;
             case "delete":
                 this.deleteTask(request, response);
@@ -115,7 +129,6 @@ public class TaskEditServlet extends HttpServlet {
         List<String> errors = new ArrayList<>();
 
         String taskCategory = request.getParameter("task_category");
-        String taskZutat = request.getParameter("task_zutat");
         String taskStatus = request.getParameter("task_status");
         String taskShortText = request.getParameter("task_short_text");
         String taskLongText = request.getParameter("task_long_text");
@@ -125,14 +138,6 @@ public class TaskEditServlet extends HttpServlet {
         if (taskCategory != null && !taskCategory.trim().isEmpty()) {
             try {
                 task.setCategory(this.categoryBean.findById(Long.parseLong(taskCategory)));
-            } catch (NumberFormatException ex) {
-                // Ungültige oder keine ID mitgegeben
-            }
-        }
-        
-        if (taskZutat != null && !taskZutat.trim().isEmpty()) {
-            try {
-                task.setZutat(this.zutatBean.findById(Long.parseLong(taskZutat)));
             } catch (NumberFormatException ex) {
                 // Ungültige oder keine ID mitgegeben
             }
@@ -157,7 +162,7 @@ public class TaskEditServlet extends HttpServlet {
         // Weiter zur nächsten Seite
         if (errors.isEmpty()) {
             // Keine Fehler: Startseite aufrufen
-            response.sendRedirect(WebUtils.appUrl(request, "/app/tasks/list/"));
+            response.sendRedirect(WebUtils.appUrl(request, "/app/tasks/task/list"));
         } else {
             // Fehler: Formuler erneut anzeigen
             FormValues formValues = new FormValues();
@@ -238,7 +243,7 @@ public class TaskEditServlet extends HttpServlet {
      */
     private FormValues createTaskForm(Task task) {
         Map<String, String[]> values = new HashMap<>();
-
+        
         values.put("task_owner", new String[]{
             task.getOwner().getUsername()
         });
@@ -246,12 +251,6 @@ public class TaskEditServlet extends HttpServlet {
         if (task.getCategory() != null) {
             values.put("task_category", new String[]{
                 "" + task.getCategory().getId()
-            });
-        }
-        
-        if (task.getZutat() != null) {
-            values.put("task_zutat", new String[]{
-                "" + task.getZutat().getId()
             });
         }
 
@@ -272,7 +271,110 @@ public class TaskEditServlet extends HttpServlet {
         return formValues;
     }
 
+    private void addZutat(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException { 
+        
+        // Formulareingaben prüfen
+        List<String> errors = new ArrayList<>();
+
+        String taskZutat = request.getParameter("task_zutat");
+        Task task = this.getRequestedTask(request);
+        
+        ZutatGruppe zutatgruppe = new ZutatGruppe();
+        List<Task> tasks = this.taskBean.findByUsername(this.userBean.getCurrentUser().getUsername());
+        long gruppenID = tasks.size() + 1;
+        zutatgruppe.setZutatGruppe(gruppenID, taskZutat);
+        
+        this.zutatgruppeBean.update(zutatgruppe);
+        
+        FormValues formValues = new FormValues();
+            formValues.setValues(request.getParameterMap());
+            formValues.setErrors(errors);
+
+            HttpSession session = request.getSession();
+            session.setAttribute("task_form", formValues);
+
+            response.sendRedirect(request.getRequestURI());
+    }
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

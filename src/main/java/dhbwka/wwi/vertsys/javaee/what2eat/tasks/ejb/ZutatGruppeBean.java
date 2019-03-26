@@ -27,10 +27,19 @@ public class ZutatGruppeBean extends EntityBean<ZutatGruppe, Long> {
     }
 
     
-    public List<ZutatGruppe> findAllSorted() {
-        return this.em.createQuery("SELECT c FROM ZutatGruppe c ORDER BY c.taskId").getResultList();
+    public List<ZutatGruppe> findAllSorted(long zutatgruppe) {
+        return this.em.createQuery("SELECT z FROM ZutatGruppe z WHERE z.gruppenId = :zutatgruppe")
+        .setParameter("zutatgruppe", zutatgruppe)
+        .getResultList();
     }
 }
+
+
+
+
+
+
+
 
 
 

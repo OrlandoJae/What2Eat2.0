@@ -10,14 +10,10 @@
 package dhbwka.wwi.vertsys.javaee.what2eat.tasks.jpa;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
 import javax.persistence.TableGenerator;
 
 
@@ -34,17 +30,17 @@ public class ZutatGruppe implements Serializable {
     @GeneratedValue(strategy = GenerationType.TABLE, generator = "zutatgruppe_ids")
     @TableGenerator(name = "zutatgruppe_ids", initialValue = 0, allocationSize = 50)
     private long id;
-
-    private long taskId;
-    private long zutatId;
+    
+    private long gruppenId;
+    private String zutat;
 
     //<editor-fold defaultstate="collapsed" desc="Konstruktoren">
     public ZutatGruppe() {
     }
 
-    public ZutatGruppe(long taskId, long zutatId) {
-        this.taskId = taskId;
-        this.zutatId = zutatId;
+    public ZutatGruppe(long taskId, String zutat) {
+        this.gruppenId = taskId;
+        this.zutat = zutat;
     }
     //</editor-fold>
 
@@ -57,17 +53,37 @@ public class ZutatGruppe implements Serializable {
         this.id = id;
     }
 
-    public long getTaskId() {
-        return taskId + zutatId;
+    public long getZutatGruppe() {
+        return gruppenId;
     }
 
-    public void setTaskId(long taskId, long zutatId) {
-        this.taskId = taskId;
-        this.zutatId = zutatId;
+    public void setZutatGruppe(long gruppenId, String zutat) {
+        this.gruppenId = gruppenId;
+        this.zutat = zutat;
     }
     //</editor-fold>
 
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

@@ -43,8 +43,6 @@ public class Zutat implements Serializable {
     @Size(min = 3, max = 30, message = "Der Name muss zwischen drei und 30 Zeichen lang sein.")
     private String name;
 
-    @OneToMany(mappedBy = "zutat", fetch = FetchType.LAZY)
-    List<Task> tasks = new ArrayList<>();
 
     //<editor-fold defaultstate="collapsed" desc="Konstruktoren">
     public Zutat() {
@@ -71,17 +69,10 @@ public class Zutat implements Serializable {
     public void setName(String name) {
         this.name = name;
     }
-
-    public List<Task> getTasks() {
-        return tasks;
-    }
-
-    public void setTasks(List<Task> tasks) {
-        this.tasks = tasks;
-    }
     //</editor-fold>
 
 }
+
 
 
 

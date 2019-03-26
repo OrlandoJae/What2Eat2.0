@@ -87,9 +87,9 @@
                     <input type="text" name="task_short_text" value="${task_form.values["task_short_text"][0]}">
                 </div>
                 
-                <label for="task_zutat">Zutaten:</label>
-                    <div class="side-by-side">
-                    <input type="text" list="suchbegriffe" name="task_zutat"/>
+                <label>Zutaten:</label>
+                <div class="side-by-side">
+                    <input type="text" list="suchbegriffe" autocomplete="off" name="task_zutat"/>
                     <datalist id="suchbegriffe" >
                         <option value="">...</option>
                         <c:forEach items="${zutaten}" var="zutat">
@@ -98,12 +98,41 @@
                             </option>
                         </c:forEach>
                     </datalist>
+                    <button  type="submit" name="action" value="add" href="">
+                        <i class="fas fa-plus"></i>Add
+                    </button>
                 </div>
                 
                 <div id="textbox">
-                Zutatenliste
+                 <%-- Fehlermeldungen --%>
+                <c:if test="${!empty zutaten_form.errors}">
+                    <ul class="errors margin">
+                        <c:forEach items="${zutaten_form.errors}" var="error">
+                            <li>${error}</li>
+                            </c:forEach>
+                    </ul>
+                </c:if>
                 </div>
-                
+                <%-- Vorhandene Kategorien --%>
+                <c:choose>
+                    <c:when test="${empty gruppe}">
+                        <p id="textbox">
+                            Es sind noch keine Kategorien vorhanden. 🐏
+                        </p>
+                    </c:when>
+                    <c:otherwise>
+                        <div id="textbox" class="zutatengruppe">
+                                <c:forEach items="${gruppe}" var="gruppe">
+                                    <input type="checkbox" name="gruppe" id="${'gruppe-'.concat(gruppe.id)}" value="${gruppe.id}" />
+                                    <label id="zutatenliste" for="${'gruppe-'.concat(gruppe.id)}">
+                                        <c:out value="${gruppe.zutat}"/>
+                                    </label>
+                                    <br />
+                                </c:forEach>
+                        </div>
+                    </c:otherwise>
+                </c:choose>
+                        
                 <label for="task_long_text">
                     Beschreibung:
                 </label>
@@ -137,6 +166,40 @@
        </div>     
     </jsp:attribute>
 </template:base>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

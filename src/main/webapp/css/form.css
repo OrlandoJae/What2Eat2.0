@@ -42,6 +42,21 @@ button[type=submit] {
   font-weight: bold;
 }
 
+.submitbutton {
+  width: 100%;
+  background-color: #4CAF50;
+  color: white;
+  padding: 14px 20px;
+  margin: 8px 0;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-family: 'Quicksand', sans-serif;
+  font-size: 14pt;
+  color: white;
+  font-weight: bold;
+}
+
 button[type=submit]:hover {
   background-color: #45a049;
 }
@@ -126,6 +141,7 @@ form .errors {
     margin-top: 1em;
     color: red;
 }
+
 
 
 

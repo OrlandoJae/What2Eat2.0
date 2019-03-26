@@ -16,6 +16,7 @@ import dhbwka.wwi.vertsys.javaee.what2eat.common.ejb.ValidationBean;
 import dhbwka.wwi.vertsys.javaee.what2eat.tasks.jpa.Category;
 import dhbwka.wwi.vertsys.javaee.what2eat.tasks.jpa.Task;
 import java.io.IOException;
+import static java.lang.System.out;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.servlet.RequestDispatcher;
@@ -111,7 +112,9 @@ public class CategoryListServlet extends HttpServlet {
             HttpSession session = request.getSession();
             session.setAttribute("categories_form", formValues);
         }
-
+        
+        RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/tasks/category_list.jsp");
+        dispatcher.forward(request, response);
         response.sendRedirect(request.getRequestURI());
     }
 
@@ -152,6 +155,9 @@ public class CategoryListServlet extends HttpServlet {
             List<Task> tasks = category.getTasks();
 
             if (tasks != null) {
+                out.println("<script type=\"text/javascript\">"); 
+                out.println("alert('Die Gerichte in dieser Kategorie sind jetzt ohne Kategorie!');");
+                out.println("</script>"); 
                 tasks.forEach((Task task) -> {
                     task.setCategory(null);
                     this.taskBean.update(task);
@@ -167,3 +173,9 @@ public class CategoryListServlet extends HttpServlet {
     }
 
 }
+
+
+
+
+
+

@@ -44,8 +44,7 @@ public class Task implements Serializable {
     @ManyToOne
     private Category category;
     
-    @ManyToOne
-    private Zutat zutat;
+    private long zutatgruppe;
 
     @Column(length = 50)
     @NotNull(message = "Die Bezeichnung darf nicht leer sein.")
@@ -93,16 +92,16 @@ public class Task implements Serializable {
         return category;
     }
     
-    public Zutat getZutat() {
-        return zutat;
+    public long getGruppe() {
+        return zutatgruppe;
     }
 
     public void setCategory(Category category) {
         this.category = category;
     }
     
-    public void setZutat(Zutat zutat) {
-        this.zutat = zutat;
+    public void setGruppe(long zutatgruppe) {
+        this.zutatgruppe = zutatgruppe;
     }
 
     public String getShortText() {
@@ -131,6 +130,11 @@ public class Task implements Serializable {
     //</editor-fold>
 
 }
+
+
+
+
+
 
 
 
