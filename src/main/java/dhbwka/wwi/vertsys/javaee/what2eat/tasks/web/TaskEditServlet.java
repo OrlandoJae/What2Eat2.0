@@ -16,10 +16,9 @@ import dhbwka.wwi.vertsys.javaee.what2eat.tasks.ejb.TaskBean;
 import dhbwka.wwi.vertsys.javaee.what2eat.common.ejb.UserBean;
 import dhbwka.wwi.vertsys.javaee.what2eat.common.ejb.ValidationBean;
 import dhbwka.wwi.vertsys.javaee.what2eat.tasks.ejb.ZutatBean;
-import dhbwka.wwi.vertsys.javaee.what2eat.tasks.ejb.ZutatGruppeBean;
 import dhbwka.wwi.vertsys.javaee.what2eat.tasks.jpa.Task;
 import dhbwka.wwi.vertsys.javaee.what2eat.tasks.jpa.TaskStatus;
-import dhbwka.wwi.vertsys.javaee.what2eat.tasks.jpa.ZutatGruppe;
+import dhbwka.wwi.vertsys.javaee.what2eat.tasks.jpa.Zutat;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -41,9 +40,6 @@ public class TaskEditServlet extends HttpServlet {
 
     @EJB
     TaskBean taskBean;
-    
-    @EJB
-    ZutatGruppeBean zutatgruppeBean;
 
     @EJB
     CategoryBean categoryBean;
@@ -67,7 +63,6 @@ public class TaskEditServlet extends HttpServlet {
         request.setAttribute("categories", this.categoryBean.findAllSorted());
         request.setAttribute("statuses", TaskStatus.values());
         request.setAttribute("zutaten", this.zutatBean.findAllSorted());
-        request.setAttribute("grupp", this.zutatgruppeBean.findAllSorted(gruppenID));
 
         // Zu bearbeitende Aufgabe einlesen
         HttpSession session = request.getSession();
@@ -278,14 +273,10 @@ public class TaskEditServlet extends HttpServlet {
         List<String> errors = new ArrayList<>();
 
         String taskZutat = request.getParameter("task_zutat");
+        Zutat z = zutatBean.findByName(taskZutat);
         Task task = this.getRequestedTask(request);
         
-        ZutatGruppe zutatgruppe = new ZutatGruppe();
-        List<Task> tasks = this.taskBean.findByUsername(this.userBean.getCurrentUser().getUsername());
-        long gruppenID = tasks.size() + 1;
-        zutatgruppe.setZutatGruppe(gruppenID, taskZutat);
-        
-        this.zutatgruppeBean.update(zutatgruppe);
+        task.addZutat(z);
         
         FormValues formValues = new FormValues();
             formValues.setValues(request.getParameterMap());

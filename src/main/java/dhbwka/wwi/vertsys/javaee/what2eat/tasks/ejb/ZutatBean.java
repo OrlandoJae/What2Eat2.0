@@ -29,6 +29,14 @@ public class ZutatBean extends EntityBean<Zutat, Long> {
     public List<Zutat> findAllSorted() {
         return this.em.createQuery("SELECT z FROM Zutat z ORDER BY z.name").getResultList();
     }
+    
+    public Zutat findByName(String name) {
+        Zutat z = (Zutat) this.em.createQuery("SELECT z from Zutat z WHERE z.name = :NAME")
+                .setParameter("NAME", name)
+                .getSingleResult();
+        
+        return z;
+    }
 }
 
 

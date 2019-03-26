@@ -11,6 +11,7 @@ package dhbwka.wwi.vertsys.javaee.what2eat.tasks.jpa;
 
 import dhbwka.wwi.vertsys.javaee.what2eat.common.jpa.User;
 import java.io.Serializable;
+import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -20,6 +21,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.TableGenerator;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -44,7 +46,8 @@ public class Task implements Serializable {
     @ManyToOne
     private Category category;
     
-    private long zutatgruppe;
+    @OneToMany
+    private List<Zutat> zutatenListe;
 
     @Column(length = 50)
     @NotNull(message = "Die Bezeichnung darf nicht leer sein.")
@@ -92,16 +95,8 @@ public class Task implements Serializable {
         return category;
     }
     
-    public long getGruppe() {
-        return zutatgruppe;
-    }
-
     public void setCategory(Category category) {
         this.category = category;
-    }
-    
-    public void setGruppe(long zutatgruppe) {
-        this.zutatgruppe = zutatgruppe;
     }
 
     public String getShortText() {
@@ -126,6 +121,18 @@ public class Task implements Serializable {
 
     public void setStatus(TaskStatus status) {
         this.status = status;
+    }
+    
+    public void setZutaten(List<Zutat> zutaten) {
+        zutatenListe = zutaten;
+    }
+    
+    public List<Zutat> getZutaten() {
+        return this.zutatenListe;
+    }
+    
+    public void addZutat(Zutat zutat) {
+        this.zutatenListe.add(zutat);
     }
     //</editor-fold>
 
