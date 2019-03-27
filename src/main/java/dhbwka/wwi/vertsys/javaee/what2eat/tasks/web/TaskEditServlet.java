@@ -132,7 +132,6 @@ public class TaskEditServlet extends HttpServlet {
         String taskStatus = request.getParameter("task_status");
         String taskShortText = request.getParameter("task_short_text");
         String taskLongText = request.getParameter("task_long_text");
-        String zutatenListe = request.getParameter("zutatenliste");
 
         Task task = this.getRequestedTask(request);
 
@@ -283,24 +282,27 @@ public class TaskEditServlet extends HttpServlet {
 
         String taskZutat = request.getParameter("task_zutat");
         Zutat z = new Zutat();
-        try {
-            z = zutatBean.findByName(taskZutat);
-            this.zutatenListe.add(z);
-        } catch (Exception e) {
-            log(e.toString());
-            Zutat zutat = new Zutat(taskZutat);
-            this.validationBean.validate(zutat);
+        
+        if (taskZutat != "") {
+            try {
+                z = zutatBean.findByName(taskZutat);
+                this.zutatenListe.add(z);
+            } catch (Exception e) {
+                log(e.toString());
+                Zutat zutat = new Zutat(taskZutat);
+                this.validationBean.validate(zutat);
 
-            // Neue Kategorie anlegen
-            if (errors.isEmpty()) {
-                if (zutatBean.findByName(zutat.getName()) != null) {
-                log("Zutat existiert bereits.");
+                // Neue Kategorie anlegen
+                if (errors.isEmpty()) {
+                    if (zutatBean.findByName(zutat.getName()) != null) {
+                    log("Zutat existiert bereits.");
+                    }
+                    else {
+                        this.zutatBean.saveNew(zutat);
+                    }
                 }
-                else {
-                    this.zutatBean.saveNew(zutat);
-                }
+                this.zutatenListe.add(zutat);
             }
-            this.zutatenListe.add(zutat);
         }
         
         FormValues formValues = new FormValues();
@@ -314,6 +316,9 @@ public class TaskEditServlet extends HttpServlet {
     }
 
 }
+
+
+
 
 
 
