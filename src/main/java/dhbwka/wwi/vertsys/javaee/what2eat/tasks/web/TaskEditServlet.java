@@ -165,6 +165,7 @@ public class TaskEditServlet extends HttpServlet {
         // Weiter zur nächsten Seite
         if (errors.isEmpty()) {
             // Keine Fehler: Startseite aufrufen
+            this.zutatenListe = new ArrayList();
             response.sendRedirect(WebUtils.appUrl(request, "/app/tasks/list/"));
         } else {
             // Fehler: Formuler erneut anzeigen
@@ -281,11 +282,21 @@ public class TaskEditServlet extends HttpServlet {
         List<String> errors = new ArrayList<>();
 
         String taskZutat = request.getParameter("task_zutat");
-        Zutat z = zutatBean.findByName(taskZutat);
-        
-        Task task = this.getRequestedTask(request);
-        
-        this.zutatenListe.add(z);
+        Zutat z = new Zutat();
+        try {
+            z = zutatBean.findByName(taskZutat);
+            this.zutatenListe.add(z);
+        } catch (Exception e) {
+            log(e.toString());
+            Zutat zutat = new Zutat(taskZutat);
+            this.validationBean.validate(zutat);
+
+            // Neue Kategorie anlegen
+            if (errors.isEmpty()) {
+                this.zutatBean.saveNew(zutat);
+            }
+            this.zutatenListe.add(zutat);
+        }
         
         FormValues formValues = new FormValues();
             formValues.setValues(request.getParameterMap());
@@ -298,6 +309,21 @@ public class TaskEditServlet extends HttpServlet {
     }
 
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
