@@ -18,6 +18,7 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.TableGenerator;
 import javax.validation.constraints.NotNull;
@@ -42,8 +43,10 @@ public class Zutat implements Serializable {
     @NotNull(message = "Der Name darf nicht leer sein.")
     @Size(min = 3, max = 30, message = "Der Name muss zwischen drei und 30 Zeichen lang sein.")
     private String name;
-
-
+    
+    @ManyToMany (mappedBy = "zutatenListe", fetch = FetchType.LAZY)
+    List<Task> task;
+     
     //<editor-fold defaultstate="collapsed" desc="Konstruktoren">
     public Zutat() {
     }
@@ -69,9 +72,58 @@ public class Zutat implements Serializable {
     public void setName(String name) {
         this.name = name;
     }
+    
+    public List<Task> getTasks() {
+        return task;
+    }
+
+    public void setTasks(List<Task> task) {
+        this.task = task;
+    }
     //</editor-fold>
 
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

@@ -115,17 +115,17 @@
                 </div>
                 <%-- Vorhandene Kategorien --%>
                 <c:choose>
-                    <c:when test="${empty task.zutatenListe}">
+                     <c:when test="${empty zutatenListe}">
                         <p id="textbox">
                             Es sind noch keine Kategorien vorhanden. 🐏
                         </p>
                     </c:when>
                     <c:otherwise>
-                        <div id="textbox" class="zutatengruppe">
+                        <div id="textbox" class="zutatengruppe" name="zutatenliste">
                                 <c:forEach items="${zutatenListe}" var="zutat">
                                     <input type="checkbox" name="zutatenliste" value="${zutat.id}" />
                                     <label id="zutatenListe">
-                                        <c:out value="${zutat}"/>
+                                        <c:out value="${zutat.name}"/>
                                     </label>
                                     <br />
                                 </c:forEach>
@@ -166,6 +166,10 @@
        </div>     
     </jsp:attribute>
 </template:base>
+
+
+
+
 
 
 

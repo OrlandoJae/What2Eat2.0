@@ -52,12 +52,13 @@ public class CategoryListServlet extends HttpServlet {
         request.setAttribute("categories", this.categoryBean.findAllSorted());
 
         // Anfrage an dazugerhörige JSP weiterleiten
-        RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/tasks/category_list.jsp");
-        dispatcher.forward(request, response);
 
         // Alte Formulardaten aus der Session entfernen
         HttpSession session = request.getSession();
         session.removeAttribute("categories_form");
+        
+        RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/tasks/category_list.jsp");
+        dispatcher.forward(request, response);
     }
 
     @Override
@@ -113,8 +114,6 @@ public class CategoryListServlet extends HttpServlet {
             session.setAttribute("categories_form", formValues);
         }
         
-        RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/tasks/category_list.jsp");
-        dispatcher.forward(request, response);
         response.sendRedirect(request.getRequestURI());
     }
 
@@ -155,9 +154,7 @@ public class CategoryListServlet extends HttpServlet {
             List<Task> tasks = category.getTasks();
 
             if (tasks != null) {
-                out.println("<script type=\"text/javascript\">"); 
-                out.println("alert('Die Gerichte in dieser Kategorie sind jetzt ohne Kategorie!');");
-                out.println("</script>"); 
+               
                 tasks.forEach((Task task) -> {
                     task.setCategory(null);
                     this.taskBean.update(task);
@@ -173,6 +170,8 @@ public class CategoryListServlet extends HttpServlet {
     }
 
 }
+
+
 
 
 

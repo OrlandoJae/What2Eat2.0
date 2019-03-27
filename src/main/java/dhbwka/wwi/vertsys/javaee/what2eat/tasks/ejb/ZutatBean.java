@@ -37,7 +37,16 @@ public class ZutatBean extends EntityBean<Zutat, Long> {
         
         return z;
     }
+    
+    public List<Zutat> findByTaskId(long taskId) {
+        List<Zutat> z =this.em.createQuery("SELECT z from Zutat z WHERE z.task.id = :taskId")
+                .setParameter("taskId", taskId)
+                .getResultList();
+        return z;
+    }
 }
+
+
 
 
 

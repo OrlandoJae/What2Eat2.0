@@ -17,10 +17,12 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Lob;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.TableGenerator;
@@ -47,7 +49,8 @@ public class Task implements Serializable {
     @ManyToOne
     private Category category;
     
-    @OneToMany
+   
+    @ManyToMany
     private List<Zutat> zutatenListe;
 
     @Column(length = 50)
@@ -67,11 +70,12 @@ public class Task implements Serializable {
     public Task() {
     }
 
-    public Task(User owner, Category category, String shortText, String longText) {
+    public Task(User owner, Category category, String shortText, String longText, List<Zutat> zutatenListe) {
         this.owner = owner;
         this.category = category;
         this.shortText = shortText;
         this.longText = longText;
+        this.zutatenListe = zutatenListe;
     }
     //</editor-fold>
 
@@ -124,7 +128,7 @@ public class Task implements Serializable {
         this.status = status;
     }
     
-    public void setZutaten(List<Zutat> zutaten) {
+    public void setZutatenListe(List<Zutat> zutaten) {
         zutatenListe = zutaten;
     }
     
@@ -132,19 +136,39 @@ public class Task implements Serializable {
         return this.zutatenListe;
     }
     
-    public void addZutat(Zutat zutat) {
-        if (zutatenListe != null) {
-            this.zutatenListe.add(zutat);
-        }
-        else {
-            List<Zutat> list = new ArrayList();
-            list.add(zutat);
-            this.setZutaten(list);
-        }
-    }
+   
     //</editor-fold>
 
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

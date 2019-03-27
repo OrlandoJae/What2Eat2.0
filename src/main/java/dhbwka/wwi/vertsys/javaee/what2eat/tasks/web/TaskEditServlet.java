@@ -24,7 +24,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import javafx.beans.binding.Bindings;
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -36,6 +35,7 @@ import javax.servlet.http.HttpSession;
 /**
  * Seite zum Anlegen oder Bearbeiten einer Aufgabe.
  */
+
 @WebServlet(urlPatterns = "/app/tasks/task/*")
 public class TaskEditServlet extends HttpServlet {
 
@@ -54,20 +54,17 @@ public class TaskEditServlet extends HttpServlet {
     @EJB
     ValidationBean validationBean;
     
-    List<Zutat> zutatenListe;
+    private List<Zutat> zutatenListe = new ArrayList();
 
     @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
-        zutatenListe = new ArrayList();
         
         // Verfügbare Kategorien und Stati für die Suchfelder ermitteln
         request.setAttribute("categories", this.categoryBean.findAllSorted());
         request.setAttribute("statuses", TaskStatus.values());
         request.setAttribute("zutaten", this.zutatBean.findAllSorted());
-        
-
         // Zu bearbeitende Aufgabe einlesen
         HttpSession session = request.getSession();
 
@@ -75,12 +72,12 @@ public class TaskEditServlet extends HttpServlet {
         
         request.setAttribute("edit", task.getId() != 0);
         
-        if (task.getId() != 0) {
-            zutatenListe = task.getZutatenListe();
+        if (task.getId() != 0){
+            request.setAttribute("zutatenListe", this.zutatBean.findByTaskId(task.getId()));
+        } else {
+            request.setAttribute("zutatenListe", this.zutatenListe);
         }
         
-        request.setAttribute("zutatenListe", zutatenListe);
-                                
         if (session.getAttribute("task_form") == null) {
             // Keine Formulardaten mit fehlerhaften Daten in der Session,
             // daher Formulardaten aus dem Datenbankobjekt übernehmen
@@ -96,9 +93,6 @@ public class TaskEditServlet extends HttpServlet {
     @Override
     public void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
-        List<Task> tasks = this.taskBean.findByUsername(this.userBean.getCurrentUser().getUsername());
-        long gruppenID = tasks.size() + 1;
 
         // Angeforderte Aktion ausführen
         String action = request.getParameter("action");
@@ -138,6 +132,7 @@ public class TaskEditServlet extends HttpServlet {
         String taskStatus = request.getParameter("task_status");
         String taskShortText = request.getParameter("task_short_text");
         String taskLongText = request.getParameter("task_long_text");
+        String zutatenListe = request.getParameter("zutatenliste");
 
         Task task = this.getRequestedTask(request);
 
@@ -148,10 +143,6 @@ public class TaskEditServlet extends HttpServlet {
                 // Ungültige oder keine ID mitgegeben
             }
         }
-        
-        if (!zutatenListe.isEmpty()) {
-            task.setZutaten(zutatenListe);
-        }
 
         try {
             task.setStatus(TaskStatus.valueOf(taskStatus));
@@ -161,7 +152,9 @@ public class TaskEditServlet extends HttpServlet {
 
         task.setShortText(taskShortText);
         task.setLongText(taskLongText);
-
+        
+        task.setZutatenListe(this.zutatenListe);
+        
         this.validationBean.validate(task, errors);
 
         // Datensatz speichern
@@ -172,7 +165,7 @@ public class TaskEditServlet extends HttpServlet {
         // Weiter zur nächsten Seite
         if (errors.isEmpty()) {
             // Keine Fehler: Startseite aufrufen
-            response.sendRedirect(WebUtils.appUrl(request, "/app/tasks/task/list"));
+            response.sendRedirect(WebUtils.appUrl(request, "/app/tasks/list/"));
         } else {
             // Fehler: Formuler erneut anzeigen
             FormValues formValues = new FormValues();
@@ -290,9 +283,9 @@ public class TaskEditServlet extends HttpServlet {
         String taskZutat = request.getParameter("task_zutat");
         Zutat z = zutatBean.findByName(taskZutat);
         
-        zutatenListe.add(z);
+        Task task = this.getRequestedTask(request);
         
-        log(zutatenListe.toString());
+        this.zutatenListe.add(z);
         
         FormValues formValues = new FormValues();
             formValues.setValues(request.getParameterMap());
@@ -305,6 +298,99 @@ public class TaskEditServlet extends HttpServlet {
     }
 
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
