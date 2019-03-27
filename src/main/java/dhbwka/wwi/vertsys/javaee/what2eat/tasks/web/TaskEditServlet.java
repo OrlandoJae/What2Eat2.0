@@ -72,8 +72,9 @@ public class TaskEditServlet extends HttpServlet {
         
         request.setAttribute("edit", task.getId() != 0);
         
-        if (task.getId() != 0){
-            request.setAttribute("zutatenListe", this.zutatBean.findByTaskId(task.getId()));
+        if (task.getId() != 0 && this.zutatenListe.isEmpty()){
+            this.zutatenListe.addAll(this.zutatBean.findByTaskId(task.getId()));
+            request.setAttribute("zutatenListe", this.zutatenListe);
         } else {
             request.setAttribute("zutatenListe", this.zutatenListe);
         }
@@ -152,7 +153,11 @@ public class TaskEditServlet extends HttpServlet {
         task.setShortText(taskShortText);
         task.setLongText(taskLongText);
         
-        task.setZutatenListe(this.zutatenListe);
+        if (task.getId() != 0){
+            
+        }else if (!this.zutatenListe.isEmpty()){
+            task.setZutatenListe(this.zutatenListe);
+        }
         
         this.validationBean.validate(task, errors);
 
@@ -284,6 +289,7 @@ public class TaskEditServlet extends HttpServlet {
         Zutat z = new Zutat();
         
         if (taskZutat != "") {
+            
             try {
                 z = zutatBean.findByName(taskZutat);
                 this.zutatenListe.add(z);
@@ -316,6 +322,16 @@ public class TaskEditServlet extends HttpServlet {
     }
 
 }
+
+
+
+
+
+
+
+
+
+
 
 
 

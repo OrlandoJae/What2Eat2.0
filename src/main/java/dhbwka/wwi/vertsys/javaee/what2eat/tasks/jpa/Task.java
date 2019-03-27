@@ -128,8 +128,8 @@ public class Task implements Serializable {
         this.status = status;
     }
     
-    public void setZutatenListe(List<Zutat> zutaten) {
-        zutatenListe = zutaten;
+    public void setZutatenListe(List<Zutat> zutatenListe) {
+        this.zutatenListe = zutatenListe;
     }
     
     public List<Zutat> getZutatenListe() {
@@ -139,7 +139,17 @@ public class Task implements Serializable {
    
     //</editor-fold>
 
+
 }
+
+
+
+
+
+
+
+
+
 
 
 
