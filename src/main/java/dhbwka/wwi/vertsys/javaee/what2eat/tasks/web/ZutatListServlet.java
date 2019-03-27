@@ -98,7 +98,13 @@ public class ZutatListServlet extends HttpServlet {
 
         // Neue Kategorie anlegen
         if (errors.isEmpty()) {
-            this.zutatBean.saveNew(zutat);
+            if (zutatBean.findByName(zutat.getName()) != null) {
+                log("Zutat existiert bereits.");
+            }
+            else {
+                this.zutatBean.saveNew(zutat);
+            }
+                            
         }
 
         // Browser auffordern, die Seite neuzuladen

@@ -109,5 +109,19 @@ public class UserBean {
             super(message);
         }
     }
+    
+    public User validateUser(String username, String password)
+            throws InvalidCredentialsException {
+
+        // Benutzer suchen und Passwort prüfen
+        User user = em.find(User.class, username);
+        boolean authorize = false;
+
+        if (user == null || !user.checkPassword(password)) {
+            throw new InvalidCredentialsException("Benutzername oder Passwort sind falsch.");
+        }
+        
+        return user;
+    }
 
 }

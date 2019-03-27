@@ -44,6 +44,13 @@ public class ZutatBean extends EntityBean<Zutat, Long> {
                 .getResultList();
         return z;
     }
+    
+    public class ZutatAlreadyExistsException extends Exception {
+
+        public ZutatAlreadyExistsException(String message) {
+            super(message);
+        }
+    }
 }
 
 

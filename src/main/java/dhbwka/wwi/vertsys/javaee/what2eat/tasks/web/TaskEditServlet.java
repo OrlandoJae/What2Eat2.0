@@ -293,7 +293,12 @@ public class TaskEditServlet extends HttpServlet {
 
             // Neue Kategorie anlegen
             if (errors.isEmpty()) {
-                this.zutatBean.saveNew(zutat);
+                if (zutatBean.findByName(zutat.getName()) != null) {
+                log("Zutat existiert bereits.");
+                }
+                else {
+                    this.zutatBean.saveNew(zutat);
+                }
             }
             this.zutatenListe.add(zutat);
         }
