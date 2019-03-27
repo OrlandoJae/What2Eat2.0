@@ -35,9 +35,6 @@
             <a href="<c:url value="/app/tasks/categories/"/>">Kategorien bearbeiten</a>
         </div>
         
-        <div class="menuitem">
-            <a href="<c:url value="/app/tasks/zutaten/"/>">Zutaten bearbeiten</a>
-        </div>
     </jsp:attribute>
 
     <jsp:attribute name="content">
@@ -124,6 +121,7 @@
         </c:choose>
     </jsp:attribute>
 </template:base>
+
 
 
 

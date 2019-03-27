@@ -56,6 +56,9 @@
                 <jsp:invoke fragment="menu"/>
 
                 <c:if test="${not empty pageContext.request.userPrincipal}">
+                    <div class="menuitem" >
+                        <a href="<c:url value="/app/tasks/zutaten/"/>">Zutaten bearbeiten</a>
+                    </div>
                     <div class="menuitem">
                         <a href="<c:url value="/editProfile/"/>">Benutzerverwaltung</a>
                     </div>
@@ -72,6 +75,8 @@
         </main>
     </body>
 </html>
+
+
 
 
 
