@@ -22,10 +22,7 @@ import javax.jws.WebMethod;
 import javax.jws.WebParam;
 import javax.jws.WebResult;
 
-/**
- *
- * @author Orlando Jähde
- */
+
 @Stateless
 @WebService(serviceName = "What2EatWebService")
 public class What2EatWebService {
@@ -63,3 +60,4 @@ public class What2EatWebService {
         return taskBean.findByUsername(username);
     }
 }
+

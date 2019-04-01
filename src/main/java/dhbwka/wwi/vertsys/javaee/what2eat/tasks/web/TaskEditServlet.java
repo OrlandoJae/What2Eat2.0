@@ -152,12 +152,9 @@ public class TaskEditServlet extends HttpServlet {
 
         task.setShortText(taskShortText);
         task.setLongText(taskLongText);
-        
-        if (task.getId() != 0){
-            
-        }else if (!this.zutatenListe.isEmpty()){
+       
             task.setZutatenListe(this.zutatenListe);
-        }
+        
         
         this.validationBean.validate(task, errors);
 
@@ -286,12 +283,13 @@ public class TaskEditServlet extends HttpServlet {
         List<String> errors = new ArrayList<>();
 
         String taskZutat = request.getParameter("task_zutat");
-        Zutat z = new Zutat();
         
-        if (taskZutat != "") {
+               
+        
+        if (!"".equals(taskZutat)) {
             
             try {
-                z = zutatBean.findByName(taskZutat);
+                Zutat z  = zutatBean.findByName(taskZutat);
                 this.zutatenListe.add(z);
             } catch (Exception e) {
                 log(e.toString());
@@ -322,6 +320,9 @@ public class TaskEditServlet extends HttpServlet {
     }
 
 }
+
+
+
 
 
 
