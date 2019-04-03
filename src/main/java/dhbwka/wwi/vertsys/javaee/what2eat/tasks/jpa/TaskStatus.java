@@ -23,18 +23,19 @@ public enum TaskStatus {
     public String getLabel() {
         switch (this) {
             case OPEN:
-                return "Offen";
+                return "zum Überleben";
             case IN_PROGRESS:
-                return "In Bearbeitung";
+                return "zum Leben";
             case FINISHED:
-                return "Erledigt";
+                return "zum Geniesen";
             case CANCELED:
-                return "Abgebrochen";
+                return "zur Erkenntnis";
             case POSTPONED:
-                return "Zurückgestellt";
+                return "zur Transtendenz";
             default:
                 return this.toString();
         }
     }
 
 }
+
